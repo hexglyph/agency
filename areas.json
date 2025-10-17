@@ -1,0 +1,1338 @@
+[
+    [
+        133,
+        "AMLURB-AUTORIDADE MUNICIP LIMPEZA URBANA - #1087900001#"
+    ],
+    [
+        134,
+        "ATE-AÇÕES TRABALHISTAS-EMPREGADOS - #1991006001#"
+    ],
+    [
+        135,
+        "ATT-AÇÕES TRABALHISTAS-TERCEIRIZADOS - #1991007001#"
+    ],
+    [
+        136,
+        "C-DG-CUSTOS-DESENVOVILEMTO GERAL - #1991004001#"
+    ],
+    [
+        137,
+        "C-PG-CUSTOS-PRODUÇÃO GERAL - #1991003001#"
+    ],
+    [
+        1123,
+        "GFC-NTC-NÚCLEO G C TERMOS DE CONFIRMAÇÃO - #1050104001#"
+    ],
+    [
+        139,
+        "CG-CUSTOS GERAL - #1991005001#"
+    ],
+    [
+        140,
+        "COF - CONSELHO FISCAL - #1900200001#"
+    ],
+    [
+        142,
+        "CREP-CONSELHO REPR EMPREGADOS DA PRODAM - #1990902001#"
+    ],
+    [
+        143,
+        "CRP-CREDIPRODAM - #1990903001#"
+    ],
+    [
+        144,
+        "DAF-DIRETORIA DE ADMINISTRAÇÃO FINANÇAS - #1050000001#"
+    ],
+    [
+        145,
+        "DDO II -NMGQ NÚCLEO METODOLOGIA E GARANT - #1020002001#"
+    ],
+    [
+        179,
+        "GDS-5-NC-NÚCLEO DE CIDADANIA - #1020201001#"
+    ],
+    [
+        149,
+        "DG-DESPESAS ADMINISTRATIVAS E GERAIS - #1991002001#"
+    ],
+    [
+        150,
+        "DIPAR-DIRETORIA DE PARTICIPAÇÃO - #1070000001#"
+    ],
+    [
+        151,
+        "DIT-DIRETORIA INFRAESTRUTURA  TECNOLOGIA - #1030000001#"
+    ],
+    [
+        154,
+        "GDS2-NAD-NUCLEO DE ADMINISTRACAO - #1022101001#"
+    ],
+    [
+        169,
+        "GDS4-GERENCIA DE SOLUÇÕES E SISTEMAS 4 - #1021600001#"
+    ],
+    [
+        158,
+        "GDD-GERÊNCIA DESENV OPER DESCOMPLICA SP - #1061900001#"
+    ],
+    [
+        159,
+        "GDD-NI   NÚCLEO DE IMPLANTAÇÃO - #1061902001#"
+    ],
+    [
+        160,
+        "GDD-NISP NÚCLEO DE INOV EM SERVS PUBLICO - #1061901001#"
+    ],
+    [
+        161,
+        "GDD-NO NUCLEO DE OPERAÇÃO - #1061903001#"
+    ],
+    [
+        162,
+        "GDD-NTIS  NUCLEO TECN INTEGR SISTEMAS - #1061904001#"
+    ],
+    [
+        164,
+        "GDE-NMI NUCLEO MOBILIDADE SERVICOS I - #1021505001#"
+    ],
+    [
+        165,
+        "GDE-NMII NUCLEO MOBILIDADE SERVICOS II - #1021506001#"
+    ],
+    [
+        166,
+        "GDE-NMS NUCLEO MOBILIDADE SERVICOS-SIST - #1021507001#"
+    ],
+    [
+        167,
+        "GDE-NPE NUCLEO DE PESSOAS - #1021501001#"
+    ],
+    [
+        1124,
+        "GRN-NTIS-NUCLEO TEC INT SIST-DESCOMPLI - #1063402001#"
+    ],
+    [
+        175,
+        "GDG- GERÊNCIA DE DESEN OPER GEOP LICENC - #1021200001#"
+    ],
+    [
+        176,
+        "GDG-NGEO  NÚCLEO DE GEOPROCESSAMENTO - #1021201001#"
+    ],
+    [
+        177,
+        "GDG-NLIC  NÚCLEO DE LICENCIAMENTO - #1021202001#"
+    ],
+    [
+        146,
+        "DDO -NSV NUCLEO DE SUPORTE A VENDAS - #1020001001#"
+    ],
+    [
+        157,
+        "GAB-GERÊNCIA DE BUSINESS INTELLIGENCE E - #1062200001#"
+    ],
+    [
+        152,
+        "DJU-DIR JURÍDICA E DE GOV CORPORATIVA - #1090000001#"
+    ],
+    [
+        141,
+        "CAE-COMITÊ DE AUDITORIA ESTATUTÁRIA - #1900101001#"
+    ],
+    [
+        170,
+        "GDS-4-NAR-NÚCLEO DE ARRECADAÇÃO - #1021601001#"
+    ],
+    [
+        181,
+        "GEN1-GERENCIA EXECUTIVA DE NEGOCIOS 1 - #1021800001#"
+    ],
+    [
+        163,
+        "GEN2- GERÊNCIA DE NEGOCIOS 2 - #1021500001#"
+    ],
+    [
+        168,
+        "GEN2-NENG2-NÚCLEO EXEC DE NEGOCIOS 2 - #1021502001#"
+    ],
+    [
+        148,
+        "DRM-DIR RELACIONAMENTO E INTELIG MERCADO - #1060000001#"
+    ],
+    [
+        174,
+        "GDS-4-NDF-NUCLEO DECLAR FISCAIS MOBILIAR - #1021604001#"
+    ],
+    [
+        171,
+        "GDS-4-NOF-NÚC ORCAMENTARIO E FINANCEIRO - #1021603001#"
+    ],
+    [
+        172,
+        "GDS-4-NTI-NUCLEO TRIBUTOS IMOBILIARIOS - #1021605001#"
+    ],
+    [
+        178,
+        "GDS-5-GER DE SOLUÇÕES E SISTEMAS-5 - #1020200001#"
+    ],
+    [
+        180,
+        "GDS-5-NE-NÚCLEO DE  EDUCAÇÃO - #1020202001#"
+    ],
+    [
+        183,
+        "GDM-GERENCIA ENGENHARIA SISTEMAS - #1021700001#"
+    ],
+    [
+        185,
+        "GDM-NIF NUCLEO INTRERF FABRICA EXTERNA - #1021705001#"
+    ],
+    [
+        187,
+        "GDM-NPII NUCLEO PROGRAMACAO II - #1021704001#"
+    ],
+    [
+        191,
+        "GDN- NÚCLEO DE UX/UI - #1062103001#"
+    ],
+    [
+        795,
+        "GEN-3-NO-NÚCLEO DE OPERAÇÃO - #1022304001#"
+    ],
+    [
+        826,
+        "GEN-1-GERÊNCIA EXECUTIVA DE NEGÓCIO –1 - #1011200001#"
+    ],
+    [
+        829,
+        "GEN-2-NENG-2-NÚCLEO EXEC DE NEGÓCIOS-2 - #1011301001#"
+    ],
+    [
+        835,
+        "GEN-4-GERÊNCIA EXECUTIVA DE NEGÓCIOS–4 - #1011500001#"
+    ],
+    [
+        836,
+        "GEN-5-GERÊNCIA EXECUTIVA DE NEGÓCIOS–5 - #1011600001#"
+    ],
+    [
+        859,
+        "GFS-GERENCIA SUP APOIO SISTEMAS INTERNOS - #1050600001#"
+    ],
+    [
+        1125,
+        "GRN-GERÊNCIA DE GESTÃO DE NEGÓCIOS - #1063400001#"
+    ],
+    [
+        892,
+        "GJO-GER CONF GEST RISC CONT INTERNOS . - #X1X90300001#"
+    ],
+    [
+        1126,
+        "GRN-NGF-NÚCLEO DE GESTÃO DE FÁBRICA - #1063401001#"
+    ],
+    [
+        925,
+        "GFG-NAP-NÚCLEO DE ADM DE PESSOAS - #1050803001#"
+    ],
+    [
+        838,
+        "PRE-NGN-NÚCLEO DE GESTÃO DE NEGÓCIOS - #1010002001#"
+    ],
+    [
+        958,
+        "GFG-NSQV-NUCLEO SAÚDE E QUALIDADE VIDA - #1050804001#"
+    ],
+    [
+        991,
+        "DRM-NGN-NUCLEO DE GESTAO DE NEGOCIOS - #1060002001#"
+    ],
+    [
+        1001,
+        "GDE-UX/UI-NUCLEO DE UX/UI - #1022705001#"
+    ],
+    [
+        1009,
+        "GPJ-NGPJ-NUCLEO GEST PROCESSOS JURIDICOS - #1011901001#"
+    ],
+    [
+        1057,
+        "GPJ-GT-GRUPO DE TRABALHO - LGPD - #1011902001#"
+    ],
+    [
+        997,
+        "GDE-NAS-NUCLEO DE ARQUITETURA E SISTEMAS - #1022701001#"
+    ],
+    [
+        173,
+        "GDS-4-NTM-NUCLEO DE TRIBUTOS MOBILIÁRIO - #1021602001#"
+    ],
+    [
+        201,
+        "GDS1-NSS-3 - NUC SOLUÇÕES E SISTEMAS - 3 - #1020603001#"
+    ],
+    [
+        728,
+        "GDS2-NMI-NÚCLEO DE MOBIL. E SERVIÇOS I - #1022105001#"
+    ],
+    [
+        184,
+        "GDM-NAF NUCLEO DE ARQ.FERRAMENTAS E CONF - #1021701001#"
+    ],
+    [
+        188,
+        "GDM-NQM NUCLEO QUALID MELHORIA CONTINUA - #1021702001#"
+    ],
+    [
+        793,
+        "GEN-3-NEN-3- NÚCLEO DE EXEC DE NEGÓCIOS - #1022302001#"
+    ],
+    [
+        827,
+        "GEN-1-NENG-1-NÚCLEO EXEC DE NEGÓCIOS-1 - #1011201001#"
+    ],
+    [
+        860,
+        "GIC- PROJ IMPLANT REDE IP MULTI SERVIÇOS - #1030201001#"
+    ],
+    [
+        926,
+        "GFP-NEC-NÚCLEO DE EXECUÇÃO CONTÁBIL - #1050505001#"
+    ],
+    [
+        1127,
+        "GRC-4-NRC-4.1-NUCLEO RELAC CLIENTES-4.1 - #1063202001#"
+    ],
+    [
+        214,
+        "GFG-NGPS-NÚCLEO DE GESTÃO DE PESSOAS - #1050801001#"
+    ],
+    [
+        959,
+        "GPE-GER. PLAN. PROC. PROJ. ESTRATÉGICOS - #1011700001#"
+    ],
+    [
+        992,
+        "DRM-NIN-NUCLEO DE INTELIG DE NEGOCIOS - #1060001001#"
+    ],
+    [
+        1002,
+        "GDG-GERENCIA DE GEOPROCESSAMENTO - #1022800001#"
+    ],
+    [
+        1012,
+        "GPR-NPCIN-NUCLEO PROM CULT INTEGR E NORM - #1011802001#"
+    ],
+    [
+        1018,
+        "GRC-3-NRC-3-NUCLEO RELAC C/ CLIENTES-3 - #1063101001#"
+    ],
+    [
+        1019,
+        "GRC-3-NTIS-NUCLEO TEC INT SIST-DESCOMPLI - #1063102001#"
+    ],
+    [
+        1007,
+        "GDI-NFCIP-NUC FOMENTO CULT INOV PESQUISA - #1022501001#"
+    ],
+    [
+        1006,
+        "GDI-NPSS-NUC PROD E SOFTWARE SERVIÇO - #1022503001#"
+    ],
+    [
+        153,
+        "GDS2-GERENCIA DE SOLUÇÕES E SISTEMAS 2 - #1022100001#"
+    ],
+    [
+        186,
+        "GDM-NPI NUCLEO PROGRAMACAO I - #1021703001#"
+    ],
+    [
+        190,
+        "GRT-NNS-NUCLEO DE NOVAS SQUADS - #1062102001#"
+    ],
+    [
+        794,
+        "GEN-3-NI-NÚCLEO DE IMPLANTAÇÃO - #1022303001#"
+    ],
+    [
+        797,
+        "GEN-4-GERÊNCIA EXECUTIVA DE NEGÓCIOS 4 - #1022400001#"
+    ],
+    [
+        828,
+        "GEN-2-GERÊNCIA EXECUTIVA DE NEGÓCIOS–2 - #1011300001#"
+    ],
+    [
+        993,
+        "GDB-GER DE BUSINESS INTELIG E ANALYTICS - #1022600001#"
+    ],
+    [
+        1024,
+        "PRE-NPO-NUCLEO DE OUVIDORIA - #1010003001#"
+    ],
+    [
+        203,
+        "GDS3-NAGU NUCLEO ATEND GESTAO URBANA - #1021902001#"
+    ],
+    [
+        796,
+        "GEN-3-NTIS-NÚCLEO TEC E INTEGR SISTEMAS - #1022305001#"
+    ],
+    [
+        830,
+        "GEN-3-GERÊNCIA EXECUTIVA DE NEGÓCIOS–3 - #1011400001#"
+    ],
+    [
+        194,
+        "GDP -NÚCLEO DE PRODUTIZAÇÃO - #1062001001#"
+    ],
+    [
+        195,
+        "GDP -NÚCLEO MOBILAB - #1062002001#"
+    ],
+    [
+        196,
+        "GDP-NNE NÚCLEO NOVO EMPREENDA - #1062003001#"
+    ],
+    [
+        833,
+        "GEN-3-NO-NÚCLEO DE OPERAÇÃO - #1011403001#"
+    ],
+    [
+        231,
+        "GIN-NDC-NÚCLEO DE DATA CENTER - #1031002001#"
+    ],
+    [
+        213,
+        "GFG-GER GESTÃO E DESENV DE PESSOAS - #1050800001#"
+    ],
+    [
+        205,
+        "GFA - GERÊNCIA DE CONTAB E ADMIN PESSOAS - #1050300001#"
+    ],
+    [
+        206,
+        "GFA-NAP-NÚCLEO ADMINISTRAÇÃO DE PESSOAS - #1050303001#"
+    ],
+    [
+        207,
+        "GFA-NEC-NÚCLEO DE EXECUÇÃO CONTÁBIL - #1050301001#"
+    ],
+    [
+        208,
+        "GFC-GERÊNCIA DE COMPRAS E CONTRATAÇÕES - #1050100001#"
+    ],
+    [
+        209,
+        "GFC-NAC NUCLEO ADM CONTRATOS FORNECEDORE - #1050103001#"
+    ],
+    [
+        210,
+        "GFC-NCD NÚCLEO DE COMPRA DIRETA - #1050101001#"
+    ],
+    [
+        211,
+        "GFC-NLI NÚCLEO DE LICITAÇÕES - #1050102001#"
+    ],
+    [
+        212,
+        "GFE-GERENCIA DE PLANEJAMENTO ESTRATEGICO - #1050700001#"
+    ],
+    [
+        216,
+        "GFL-GERÊNCIA DE LOGÍSTICA E PATRIMÔNIO - #1050400001#"
+    ],
+    [
+        217,
+        "GFL-NLS NUCLEO LOGISTICA E ADM SERVIÇOS - #1050401001#"
+    ],
+    [
+        218,
+        "GFL-NSP NÚCLEO DE SEGURANÇA PATRIMONIAL - #1050403001#"
+    ],
+    [
+        219,
+        "GFP-GERÊNCIA PLANEJ CONTROLE FINANCEIRO - #1050500001#"
+    ],
+    [
+        220,
+        "GFP-NAV NÚCLEO DE ADMINISTRAÇÃO DE VENDA - #1050502001#"
+    ],
+    [
+        221,
+        "GFP-NEF NÚCLEO DE EXECUÇÃO FINANCEIRA - #1050504001#"
+    ],
+    [
+        222,
+        "GFP-NOC NÚCLEO ORÇAMENTO CONTROLE CUSTOS - #1050501001#"
+    ],
+    [
+        223,
+        "GFR- GERÊNCIA ERP-PRODAM - #1050900001#"
+    ],
+    [
+        224,
+        "GIC - GERÊNCIA DE TELECOMUNICAÇÕES - #1031200001#"
+    ],
+    [
+        225,
+        "GIC-NE NÚCLEO DE ENGENHARIA - #1031202001#"
+    ],
+    [
+        226,
+        "GIC-NR - NÚCLEO DE REDES - #1031203001#"
+    ],
+    [
+        227,
+        "GIC-PROJ REDE PROJ.DE IMPL.NOVA REDE IP - #1031201001#"
+    ],
+    [
+        228,
+        "GIN - GERÊNCIA DE INFRAESTRUTURA - #1031000001#"
+    ],
+    [
+        229,
+        "GIN-NAO - NÚCLEO DE AMBIENTE OPERACIONAL - #1031001001#"
+    ],
+    [
+        230,
+        "GIN-NBD - NÚCLEO DE BANCO DE DADOS - #1031003001#"
+    ],
+    [
+        232,
+        "GIO - GERÊNCIA DE OPERAÇÕES - #1031300001#"
+    ],
+    [
+        233,
+        "GIO-NC - NÚCLEO DE CONTRATOS - #1031302001#"
+    ],
+    [
+        238,
+        "GIP NMP-NÚCLEO METODOLOGIA DE PROJETOS - #1031401001#"
+    ],
+    [
+        240,
+        "GIS - GERÊNCIA DE SERVIÇOS - #1031100001#"
+    ],
+    [
+        239,
+        "GIP-GERÊNCIA  ESCRITORIO DE PROJETOS - #1031400001#"
+    ],
+    [
+        234,
+        "GIO-NGED-NUC GEST ELETRONICA DE DADOS - #1031304001#"
+    ],
+    [
+        193,
+        "GAN-GERENCIA DE NEGOCIOS - #1062000001#"
+    ],
+    [
+        202,
+        "GDS3-GERENCIA DE SOLUÇÕES E SISTEMAS 3 - #1021900001#"
+    ],
+    [
+        198,
+        "GDO1-NAB-NÚCLEO GEST ATENCAO BASIC SAUDE - #1020601001#"
+    ],
+    [
+        994,
+        "GDB-NNS-NUCLEO DE DATA ANALYTICS - #1022601001#"
+    ],
+    [
+        235,
+        "GIO-NGRI-NUC GEST REC INFRAESTRUTURA - #1031301001#"
+    ],
+    [
+        215,
+        "GFG-NDP-NÚCLEO DE DESENV DE PESSOAS - #1050802001#"
+    ],
+    [
+        995,
+        "GDB-NPR-NUCLEO DE DATA SCIENCE - #1022602001#"
+    ],
+    [
+        197,
+        "GDS1-GERENCIA DE SOLUÇÕES E SISTEMAS 1 - #1020600001#"
+    ],
+    [
+        199,
+        "GDS1-NSS-1 - NUC SOLUÇÕES E SISTEMAS - 1 - #1020605001#"
+    ],
+    [
+        241,
+        "GIS-NAS-NÚCLEO DE ATENDIMENTO E SUPORTE - #1031105001#"
+    ],
+    [
+        243,
+        "GIS-NCF - NÚCLEO DE CONFIGURAÇÃO - #1031104001#"
+    ],
+    [
+        247,
+        "GIT-NS NUCLEO DE SEGURANCA - #1031501001#"
+    ],
+    [
+        249,
+        "GJA-GERÊNCIA JURÍDICA – ADMINISTRATIVO - #1090100001#"
+    ],
+    [
+        831,
+        "GEN-3-NEN-3-NÚCLEO DE EXEC DE NEGÓCIOS-3 - #1011401001#"
+    ],
+    [
+        996,
+        "GDE-GER DE ENGENHARIA DE SISTEMAS - #1022700001#"
+    ],
+    [
+        1003,
+        "GDG-NGEO-NUCLEO DE GEOPROCESSAMENTO - #1022801001#"
+    ],
+    [
+        1013,
+        "GRC-1-GER RELACIONAMENTO C/ CLIENTES-1 - #1062800001#"
+    ],
+    [
+        1020,
+        "GRC-4-GER RELACIONAMENTO C/ CLIENTES-4 - #1063200001#"
+    ],
+    [
+        1021,
+        "GRC-4-NRC-4-NUCLEO RELAC C/ CLIENTES-4 - #1063201001#"
+    ],
+    [
+        237,
+        "GIO-NSAM-NUC SUP AVANC MICROINFORMATICA - #1031305001#"
+    ],
+    [
+        236,
+        "GIO-NSM - NUC SUPORTE MICROINFORMATICA - #1031303001#"
+    ],
+    [
+        245,
+        "GIS-NTS NÚCLEO DE TRANSIÇÃO DE SERVIÇOS - #1031103001#"
+    ],
+    [
+        242,
+        "GIS-NC - NÚCLEO DA CENTRAL - #1031101001#"
+    ],
+    [
+        250,
+        "GPA-GERÊNCIA DE AUDITORIA INTERNA - #1010500001#"
+    ],
+    [
+        252,
+        "GPD-GASTOS PESSOAL PÓS DESLIGAMENTO - #1991008001#"
+    ],
+    [
+        832,
+        "GEN-3-NI-NÚCLEO DE IMPLANTAÇÃO - #1011402001#"
+    ],
+    [
+        834,
+        "GEN-3-NTIS-NUC TECN E INTEGR DE SISTEMAS - #1011404001#"
+    ],
+    [
+        998,
+        "GDE-NIA-NUCLE DE AGILIDADE - #1022703001#"
+    ],
+    [
+        999,
+        "GDE-NPS-NUCLEO DE PROGRAMAÇÃO DE SISTEMA - #1022704001#"
+    ],
+    [
+        1008,
+        "GPJ-GER JUR DE GOVERNANÇA CORPORATIVA - #1011900001#"
+    ],
+    [
+        1016,
+        "GRC-2-NRC-2-NUCLEO RELAC C/ CLIENTES-2 - #1062901001#"
+    ],
+    [
+        1017,
+        "GRC-3-GER RELACIONAMENTO C/ CLIENTES-3 - #1063100001#"
+    ],
+    [
+        244,
+        "GIS-NMO - NUC DE MONIT E OBSERVABILIDADE - #1031102001#"
+    ],
+    [
+        246,
+        "GIT-GERENCIA DE SEGURANÇA DA INFORMAÇÃO - #1031500001#"
+    ],
+    [
+        1090,
+        "GIT-NO-NUCLEO DE OPERAÇÃO - #1031502001#"
+    ],
+    [
+        248,
+        "GJC-GERÊNCIA JURÍDICA - CONTENCIOSO - #1090200001#"
+    ],
+    [
+        837,
+        "PRE-NIN-NÚCLEO DE INTELIG DE NEGÓCIOS - #1010001001#"
+    ],
+    [
+        1000,
+        "GDE-NQM-NUCLE DE TESTES E QUALIDADE - #1022702001#"
+    ],
+    [
+        1004,
+        "GDI-GERENCIA DE PRODUTIZAÇÃO E INOVAÇÃO - #1022500001#"
+    ],
+    [
+        1011,
+        "GPR-GT-GRUPO DE TRABALHO LGPD - #1011801001#"
+    ],
+    [
+        1005,
+        "GDI-NIASS-NUC INOV APLIC SOFT SERVIÇO - #1022502001#"
+    ],
+    [
+        251,
+        "GPC-GERÊNCIA DE COMUNICAÇÃO E MARKETING - #1010400001#"
+    ],
+    [
+        253,
+        "GPO-GERENCIA DE OUVIDORIA - #1010900001#"
+    ],
+    [
+        254,
+        "GPR-GER CONFOR GESTAO RISCOS  CONT INTER - #1010800001#"
+    ],
+    [
+        255,
+        "GPR-NPR -NUCLEO DE PROCESSOS - #1010801001#"
+    ],
+    [
+        256,
+        "GRP-GRÊMIO RECREATIVO PRODADOS - #1990901001#"
+    ],
+    [
+        257,
+        "HSPM-HOSPITAL SERVIDOR PUBLICO MUNICIPAL - #1085400001#"
+    ],
+    [
+        258,
+        "MUDANÇA - GASTOS COM MUDANÇA - SEDE - #1050490001#"
+    ],
+    [
+        259,
+        "PRE-PRESIDÊNCIA - #1010000001#"
+    ],
+    [
+        260,
+        "PSA-C-CEDIDOS - #1990801001#"
+    ],
+    [
+        261,
+        "PSA-D -DISPOSIÇÃO - #1990804001#"
+    ],
+    [
+        262,
+        "PSA-IL-INATIVOS E LICENCIADOS - #1990802001#"
+    ],
+    [
+        263,
+        "PSA-R-READAPTAÇÃO - #1990803001#"
+    ],
+    [
+        264,
+        "SMPR-SECR. MUN.DAS PREFEITURAS REGIONAIS - #1080400001#"
+    ],
+    [
+        265,
+        "SMS-SECRETARIA MUNICIPAL DA SAUDE - #1080900001#"
+    ],
+    [
+        266,
+        "SMUL-SECRET MUN URBANISMO E LICENCIAMENT - #1082700001#"
+    ],
+    [
+        1010,
+        "GPR-GER. DE COMPLIANCE E GESTÃO DE RISCO - #1011800001#"
+    ],
+    [
+        268,
+        "TCM-I-TCM - #1990904001#"
+    ],
+    [
+        269,
+        "DDN-DIRETORIA ADJUNTA OPERACOES NEGOCIOS - #1023100001#"
+    ],
+    [
+        270,
+        "GDC-GERÊNCIA DESENV.E OPER.CIDADANIA - #1020500001#"
+    ],
+    [
+        271,
+        "GDD-NPC- NÚCLEO DE PLANEJAMENTO  CONTROL - #1020103001#"
+    ],
+    [
+        272,
+        "GDG-GEO- NÚCLEO DE GEOPROCESSAMENTO - #1020401001#"
+    ],
+    [
+        273,
+        "GDG-GERÊNCIA DESENVOLV E OPER.GESTÃO TER - #1020400001#"
+    ],
+    [
+        274,
+        "GDG-NGU- NÚCLEO DE ATEND GESTÃO URBANA - #1020402001#"
+    ],
+    [
+        275,
+        "GDM-GERENCIA DE ENGENHARIA DE SISTEMAS - #1021100001#"
+    ],
+    [
+        276,
+        "GDO - GER ESCRIT PROJETOS PROCESSOS - #1020900001#"
+    ],
+    [
+        277,
+        "GDU-GERÊNCIA RELACION SERVIÇOS URBANOS - #1020300001#"
+    ],
+    [
+        278,
+        "GDX - GERÊNCIA DE PROJETOS ÁGEIS - #1023003001#"
+    ],
+    [
+        279,
+        "GIC- GERÊNCIA DE TELECOMUNICAÇÕES - #1030200001#"
+    ],
+    [
+        280,
+        "GIC-NIH- NÚCLEO IMPLANT HOMOLOG LAN/WAN - #1030203001#"
+    ],
+    [
+        281,
+        "GIC-NST- NÚCLEO DE SUPORTE TÉCNICO - #1030204001#"
+    ],
+    [
+        282,
+        "GID-GERÊNCIA DE INCIDENTES E DATA CENTER - #1030300001#"
+    ],
+    [
+        283,
+        "GID-NOC- NÚCLEO CENTRO OPERAÇÕES DE REDE - #1030302001#"
+    ],
+    [
+        284,
+        "GID-NSC- NÚCLEO CENT SERV/SUP INCIDENTE - #1030301001#"
+    ],
+    [
+        285,
+        "GIG-GER  GOVERNANÇA SERV INFRAESTRUTURA - #1030100001#"
+    ],
+    [
+        286,
+        "GIP- GERÊNCIA DE PRODUÇÃO - #1030400001#"
+    ],
+    [
+        287,
+        "GIP-DC- NÚCLEO DE DATA CENTER - #1030401001#"
+    ],
+    [
+        288,
+        "GIP-S- NÚCLEO DE SERVIÇOS - #1030403001#"
+    ],
+    [
+        289,
+        "GIS- GERÊNCIA SUPORTE À INFRAESTRUTURA - #1030600001#"
+    ],
+    [
+        290,
+        "GIS-AO- NÚCLEO DE AMBIENTE OPERACIONAL - #1030601001#"
+    ],
+    [
+        291,
+        "GIT- GERÊNCIA DE TRANSIÇÃO DE SERVIÇOS - #1030500001#"
+    ],
+    [
+        292,
+        "GIT-ML- NÚCLEO DE MUDANÇAS E LIBERAÇÕES - #1030501001#"
+    ],
+    [
+        293,
+        "GIT-NGC- NÚCLEO GESTÃO CONF CONHECIMENTO - #1030502001#"
+    ],
+    [
+        295,
+        "DDN -DIRETORIA ADJUNTA OPERAÇÕES NEGOCIO - #1063000001#"
+    ],
+    [
+        296,
+        "DDN-SPTAXI  NUCLEO SPTAXI - #1063000021#"
+    ],
+    [
+        297,
+        "DRE-DIRETORIA DE RELACIONAMENTO - #1040000001#"
+    ],
+    [
+        298,
+        "GDA-GERÊNCIA DESENV.E OPER.GESTAO ADMIN - #1060200001#"
+    ],
+    [
+        299,
+        "GDA-NAD-NÚCLEO DE ADMINISTRAÇÃO - #1060204001#"
+    ],
+    [
+        300,
+        "GDA-NGP-NÚCLEO DE GESTÃO PREVIDENCIÁRIA - #1060205001#"
+    ],
+    [
+        301,
+        "GDE-GERÊNCIA DESENVOLV E OPER.GESTÃO - #1060700001#"
+    ],
+    [
+        294,
+        "DAF- AFC ASSESSORIA  APOIO À COMERCIALIZ - #1050001001#"
+    ],
+    [
+        302,
+        "GDE-NMS NUCLEO MOD..DE SIST. MAINFRAME - #1060703001#"
+    ],
+    [
+        303,
+        "GDE-NPE NUCLEO DE PESSOAS - #1060701001#"
+    ],
+    [
+        304,
+        "GDF-GERÊNCIA DESENV.OPER.TRIB.E FINANÇAS - #1060300001#"
+    ],
+    [
+        305,
+        "GDF-NTI NUCLEO TRIBUTOS IMOBILIARIOS - #1060306001#"
+    ],
+    [
+        306,
+        "GDF-NTM-NÚCLEO DE TRIBUTOS MOBILIÁRIOS - #1060302001#"
+    ],
+    [
+        309,
+        "GDP-NFS-NÚCLEO DE FABRICA DE SOFTWARE - #1060401001#"
+    ],
+    [
+        1014,
+        "GRC-1-NRC-1-NUCLEO RELAC C/ CLIENTES-1 - #1062801001#"
+    ],
+    [
+        1015,
+        "GRC-2-GER RELACIONAMENTO C/ CLIENTES-2 - #1062900001#"
+    ],
+    [
+        307,
+        "GDO-GER ESCRITÓRIO DE PROJETOS PROCESSOS - #1061200001#"
+    ],
+    [
+        540,
+        "GRP-NPP - NÚCLEO DE PORTFÓLIO DE PROJETO - #1062503001#"
+    ],
+    [
+        1022,
+        "GRC-3-GER RELACIONAMENTO C/ CLIENTES-3 - #1063300001#"
+    ],
+    [
+        1023,
+        "GRC-3-NRC-3-NUCLEO RELAC C/ CLIENTES-3 - #1063301001#"
+    ],
+    [
+        308,
+        "GDP-GERÊNCIA DE PROGRAMAÇÃO DE SISTEMAS - #1060400001#"
+    ],
+    [
+        310,
+        "GFD-DP-NÚCLEO DE DESENVOLV DE PESSOAS - #1050202001#"
+    ],
+    [
+        311,
+        "GFD-GERÊNCIA DESENVOLV GESTÃO PESSOAS - #1050200001#"
+    ],
+    [
+        312,
+        "GFD-GP-NÚCLEO DE GESTÃO DE PESSOAS - #1050201001#"
+    ],
+    [
+        313,
+        "GFS-NM-NUCLEO DE MICROINFORMATICA - #1050601001#"
+    ],
+    [
+        314,
+        "GIE-CD-NÚCLEO CAPACIDADE DISPONIBILIDADE - #1030702001#"
+    ],
+    [
+        315,
+        "GIE-GERÊNCIA ESTRATÉGIA  DESENHO SERVIÇO - #1030700001#"
+    ],
+    [
+        316,
+        "GIE-ND-NÚCLEO DE DESENHO DO SERVIÇO - #1030703001#"
+    ],
+    [
+        317,
+        "GIE-SC-NÚCLEO SEG INF PLANO CONT NEGÓCIO - #1030701001#"
+    ],
+    [
+        318,
+        "GIM-NM - NUCLEO DE MICROINFORMATICA - #1030801001#"
+    ],
+    [
+        319,
+        "GIS-BD- NÚCLEO DE BANCO DE DADOS - #1030602001#"
+    ],
+    [
+        320,
+        "GRA-NPR-NÚCLEO DE PROCESSOS - #1060202001#"
+    ],
+    [
+        321,
+        "GRS-GERÊNCIA DE PROCESSOS DE SAÚDE - #1060100001#"
+    ],
+    [
+        322,
+        "GRS-NH-NÚCLEO DE GESTÃO HOSPITALAR - #1060102001#"
+    ],
+    [
+        323,
+        "GVA-GERÊNCIA DE AUDITORIA - #1040200001#"
+    ],
+    [
+        324,
+        "GVP-GERÊNCIA DE PROCESSOS - #1040300001#"
+    ],
+    [
+        325,
+        "GVP-PI-NÚCLEO DE PROCESSOS I - #1040301001#"
+    ],
+    [
+        326,
+        "GVP-PII-NÚCLEO DE PROCESSOS II - #1040302001#"
+    ],
+    [
+        327,
+        "GVT-GERÊNCIA DE TREINAMENTO A CLIENTES - #1040100001#"
+    ],
+    [
+        331,
+        "GDB GERÊNCIA BUSINESS INTELLIGENCE – BI - #1023001001#"
+    ],
+    [
+        332,
+        "GDE-NPS NUCLEO DE PROC, SUPRIM E INOV - #1060702001#"
+    ],
+    [
+        333,
+        "GDE-NSMGI NUCLEO TECNICO SMGI - #1060704001#"
+    ],
+    [
+        334,
+        "GDF/NDF-NUCLEO DECLAR FISCAIS MOBILIARI - #1060305001#"
+    ],
+    [
+        335,
+        "GDO-NPR NÚCLEO DE PROCESSOS - #1061202001#"
+    ],
+    [
+        336,
+        "GDU-NMII NÚCLEO MOBILIDADE SERVIÇOS- II - #1060801001#"
+    ],
+    [
+        337,
+        "GDX-NP NÚCLEO DE PLANEJAMENTO - #1023003021#"
+    ],
+    [
+        338,
+        "GPC-NCC NÚCLEO DE CRIAÇÃO E CONTEÚDO - #1010401001#"
+    ],
+    [
+        366,
+        "GPR-GT GRUPO TRAB LEI GERAL PROT DE DADO - #1010800101#"
+    ],
+    [
+        367,
+        "GDD-NI NUCLEO DE IMPLANTAÇÃO - #1022202001#"
+    ],
+    [
+        368,
+        "GDD-NISP NUCLEO EM INOVAÇÃO SERV PUBLICO - #1022201001#"
+    ],
+    [
+        369,
+        "GDD-NO NUCLEO DE OPERAÇÃO - #1022203001#"
+    ],
+    [
+        370,
+        "GDD-NTIS NUCLEO DE TEC E INTEG DE SISTEM - #1022204001#"
+    ],
+    [
+        371,
+        "GIE-GERENCIA DE ENGENHARIA DE SISTEMA - #1032000001#"
+    ],
+    [
+        372,
+        "GIE-NAF NUCLEO ARQUIT, FERRAM E CONFIGUR - #1032001001#"
+    ],
+    [
+        373,
+        "GIE-NIF NUCLEO DE INTERFACE COM FABR EXT - #1032005001#"
+    ],
+    [
+        204,
+        "GDS3-NGSI NUCLEO GESTAO SIST INFORMAÇÃO - #1021901001#"
+    ],
+    [
+        365,
+        "GDD-GER DESENVOLVIMENTO E OPERAÇÕES - #1022200001#"
+    ],
+    [
+        376,
+        "GIE-NQM NUCLEO QUALID E MELHORIAS CONTIN - #1032002001#"
+    ],
+    [
+        377,
+        "GIE-UX/UI NUCLEO DE UX/UI - #1032006001#"
+    ],
+    [
+        378,
+        "GIP-NMGQ NUCLEO METOD GARANTIA DA QUALID - #1031403001#"
+    ],
+    [
+        379,
+        "GIP-NPP NUCLEO DE PORTIFOLIO DE PROJETOS - #1031404001#"
+    ],
+    [
+        381,
+        "GRM-GERENCIA DE INTEL DE MERC E MARKETIN - #1062300001#"
+    ],
+    [
+        382,
+        "GRM-NCC-NUCLEO DE CONTEÚDO E CRIAÇÃO - #1062301001#"
+    ],
+    [
+        383,
+        "GRP-GERENCIA DE PLANEJAMENTO ESTRATÉGICO - #1062400001#"
+    ],
+    [
+        380,
+        "GAD-NAT-NÚCLEO DE ADOÇÃO DE TECNOLOGIAS - #1062104001#"
+    ],
+    [
+        147,
+        "DDS-DIR DESENV E SUSTENTAÇÃO DE SISTEMAS - #1020000001#"
+    ],
+    [
+        364,
+        "GDS-4-NNE-NUCLEO NOVO EMPREENDA - #1021606001#"
+    ],
+    [
+        189,
+        "GAD - GER DE PESQ, DESENV E INOVAÇÃO - #1062100001#"
+    ],
+    [
+        192,
+        "GAD-NNT-NÚCLEO DE PESQ E NOVAS TECNOLOGI - #1062101001#"
+    ],
+    [
+        138,
+        "COA-CONSELHO DE ADMINISTRAÇÃO - #1900100001#"
+    ],
+    [
+        385,
+        "OHD-CENTRO USO DO CUSTOS-OVERHEAD - #1991099001#"
+    ],
+    [
+        397,
+        "GIE-NNE -NUCLEO NOVO EMPREENDA - #1031603001#"
+    ],
+    [
+        374,
+        "GIE-NIA  NÚCLEO DE INOVAÇÃO E AGILIDADE - #1032003001#"
+    ],
+    [
+        463,
+        "GIE-NPR NÚCLEO DE PROSPECÇÃO - #1062004001#"
+    ],
+    [
+        375,
+        "GIE-NPS NÚCLEO DE PROGRAMAÇÃO DE SISTEMA - #1032004001#"
+    ],
+    [
+        267,
+        "DAF-NRS NÚCLEO RESPONS.SOCIAL CORPORATI - #1050002001#"
+    ],
+    [
+        496,
+        "DAF-NGD NUCLEO GESTAO DOCS FISICOS ELETR - #1050003001#"
+    ],
+    [
+        529,
+        "GAB-NNS -  NÚCLEO DE DATA ANALYTICS - #1062201001#"
+    ],
+    [
+        530,
+        "GAB-NPR - NUCLEO DE DATA SCIENCE - #1062202001#"
+    ],
+    [
+        531,
+        "GAE-GERÊNCIA DE ENGENHARIA DE SISTEMAS - #1062600001#"
+    ],
+    [
+        532,
+        "GAE-NAF - NÚCLEO DE ARQUITETURA - #1062601001#"
+    ],
+    [
+        533,
+        "GAE-NIA - NÚCLEO DE AGILIDADE - #1062603001#"
+    ],
+    [
+        534,
+        "GAE-NPS NÚCLEO DE PROGRAMAÇÃO DE SISTEMA - #1062604001#"
+    ],
+    [
+        535,
+        "GAE-NQM - NÚCLEO DE TESTE E QUALIDADE - #1062602001#"
+    ],
+    [
+        536,
+        "GAE-UX/UI - NÚCLEO DE UX/UI - #1062605001#"
+    ],
+    [
+        384,
+        "GAI-NPP-NUCLEO DE PORTIFÓLIO DE PRODUTOS - #1062105001#"
+    ],
+    [
+        539,
+        "GAO-NMP - NÚCLO DE ESCRITÓRIO E PROPOSTA - #1062501001#"
+    ],
+    [
+        541,
+        "GPC - GERÊNCIA DE COMUNICAÇÃO INSTITUCIO - #1011000001#"
+    ],
+    [
+        542,
+        "GPC-NCC - NÚCLEO DE CONTEÚDO E CRIAÇÃO - #1011001001#"
+    ],
+    [
+        543,
+        "GPP-GERÊNCIA DE PLANEJAMENTO ESTRATÉGI - #1011100001#"
+    ],
+    [
+        544,
+        "GPP-NSV- NÚCLEO DE PLANEJAMENTO - #1011101001#"
+    ],
+    [
+        562,
+        "DDO-NN-NÚCLEO DE NEGÓCIOS - #1020003001#"
+    ],
+    [
+        563,
+        "GAD-NSI - NÚCLEO DE SISTEMAS INTERNOS - #1062106001#"
+    ],
+    [
+        564,
+        "GAE-NGL - NÚCLEO DE GESTÃO DE LEGADOS - #1062606001#"
+    ],
+    [
+        565,
+        "GAG - GERÊNCIA DE GEOPROCESSAMENTO - #1062700001#"
+    ],
+    [
+        566,
+        "GAG-NGEO-NÚCLEO DE GEOPROCESSAMENTO - #1062701001#"
+    ],
+    [
+        661,
+        "GAD-NGPR - NÚCLEO DE GESTÃO DE PRODUTOS - #1062107001#"
+    ],
+    [
+        200,
+        "GDS1-NSS-2 - NUC SOLUÇÕES E SISTEMAS - 2 - #1020602001#"
+    ],
+    [
+        155,
+        "GDS2-NGP-NUCLEO DE GESTAO PREVIDENCIARIA - #1022102001#"
+    ],
+    [
+        571,
+        "GJO-GER CONF GEST RISC CONT INTERNOS - #1090300001#"
+    ],
+    [
+        568,
+        "GDL-NLIC - NÚCLEO DE LICENCIAMENTO - #1022301001#"
+    ],
+    [
+        572,
+        "GJO-GT-GRUPO DE TRABALHO DA LGPD - #1090300101#"
+    ],
+    [
+        574,
+        "GJR-GER GESTÃO DE RISCOS E CONT INTERNOS - #1090400001#"
+    ],
+    [
+        156,
+        "GDS2-NJP-NUCLEO NEG JURID E PROCURADORIA - #1022103001#"
+    ],
+    [
+        430,
+        "GFG-COMITÊ DE CRISE DA COVID-19 - #1050800101#"
+    ],
+    [
+        569,
+        "GIC-NFC-NUC FATUR E CONTRAT TELECOM - #1031206001#"
+    ],
+    [
+        595,
+        "DRM-NPG NÚCLEO DE PROJETOS DE GOVERNO - #1060003001#"
+    ],
+    [
+        537,
+        "GRP - GERÊNCIA DE AGILIDADE E PROJETOS - #1062500001#"
+    ],
+    [
+        538,
+        "GRP-NAM-NÚCLEO DE ADOÇÃO À METODOLOGIA - #1062502001#"
+    ],
+    [
+        570,
+        "GIC-NTE - NÚCLEO DE TELECOMUNICAÇÕES - #1031205001#"
+    ],
+    [
+        573,
+        "GJO-NPCIN-NUCLEO PROM CULT INT NORMATIZA - #1090301001#"
+    ],
+    [
+        694,
+        "GDD-NI  NÚCLEO DE IMPLANTAÇÃO - #1020702001#"
+    ],
+    [
+        727,
+        "DDO-NIN-NÚCLEO DE INTELIG DE NEGOCIOS - #1020004001#"
+    ],
+    [
+        567,
+        "GEN3-GERENCIA EXEC DE NEGOCIOS 3 - #1022300001#"
+    ],
+    [
+        729,
+        "GDS2-NMII-NÚCLEO DE MOBIL. E SERVIÇOS II - #1022106001#"
+    ],
+    [
+        730,
+        "GDS2-NMS-NÚCLEO DE MOBIL. SERV. SISTEMAS - #1022107001#"
+    ],
+    [
+        732,
+        "GDS3-NLIC-NÚCLEO DE LICENCIAMENTO - #1021903001#"
+    ],
+    [
+        731,
+        "GDS2-NPE-NÚCLEO DE PESSOAS - #1022104001#"
+    ],
+    [
+        182,
+        "GEN1-NENG1-NUCLEO EXEC DE NEGOCIOS 1 - #1021804001#"
+    ],
+    [
+        760,
+        "GIN-NTC-NUCLEO G CONTR TER CONFIRMACAO - #1031004001#"
+    ]
+]

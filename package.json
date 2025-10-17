@@ -1,0 +1,22 @@
+{
+  "name": "agency",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.2.20",
+  "scripts": {
+    "dev:web": "bun run --filter web dev",
+    "dev:api": "bun run --filter api dev",
+    "build": "bun run --filter web build && bun run --filter api build",
+    "lint": "bun run --filter web lint && bun run --filter api lint",
+    "test": "bun run --filter web test && bun run --filter api test",
+    "format": "bun run --filter web format && bun run --filter api format",
+    "scrape:umanni": "bun run --filter @agency/umanni-scraper start"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}

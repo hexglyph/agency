@@ -1,0 +1,20 @@
+{
+  "name": "@agency/mock-data",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    },
+    "./browser": {
+      "import": "./src/browser.ts"
+    },
+    "./core": {
+      "import": "./src/core.ts"
+    },
+    "./shared": {
+      "import": "./src/shared.ts"
+    }
+  }
+}
