@@ -1,11 +1,3 @@
-import {
-  buildRecommendations,
-  loadMockData,
-  type Project,
-  type Recommendation,
-  type Resource
-} from "@agency/mock-data";
-
 import { Dashboard } from "./components/dashboard";
 
 type CatalogMeta = {
@@ -86,6 +78,66 @@ type CatalogOverview = {
   meta: CatalogMeta;
 };
 
+type ResourceSkill = {
+  id: string;
+  name: string;
+  level?: string | null;
+  source: "competencia" | "tecnologia" | "insight";
+};
+
+type Resource = {
+  id: string;
+  name: string;
+  role?: string;
+  manager?: string;
+  macroArea?: string | null;
+  coordination?: string | null;
+  department?: string | null;
+  availability?: number | null;
+  availabilityHours?: number | null;
+  seniority?: "junior" | "pleno" | "senior" | null;
+  skills: ResourceSkill[];
+  preferredTechs: string[];
+  notes?: string;
+};
+
+type ProjectNeed = {
+  skillId: string;
+  label: string;
+  priority: "alta" | "media" | "baixa";
+};
+
+type Project = {
+  id: string;
+  siglaSistema?: string;
+  nomeSistema?: string;
+  titulo?: string;
+  macroArea?: string;
+  categoriaTecnologica?: string;
+  complexidade?: string;
+  equipeIdeal?: string;
+  observacaoIA?: string;
+  coordination?: string;
+  needs: ProjectNeed[];
+};
+
+type Recommendation = {
+  projectId: string;
+  projectName: string;
+  macroArea?: string;
+  resourceId: string;
+  resourceName: string;
+  matchedSkills: string[];
+  coordinationFit: boolean;
+  score: number;
+  matchDetail: {
+    skillCoverage: number;
+    availabilityScore: number;
+    coordinationScore: number;
+  };
+  notes: string;
+};
+
 type InsightSuggestion = {
   resourceId: string;
   resourceName: string;
@@ -96,6 +148,8 @@ type InsightSuggestion = {
     rationale: string;
   }>;
   developmentIdeas: string[];
+  skillHighlights?: string[];
+  skillGaps?: string[];
 };
 
 type InsightResponse = {
@@ -138,19 +192,6 @@ const catalogFallback: CatalogOverview = {
   }
 };
 
-function getDatasetFallback() {
-  const dataset = loadMockData();
-  const recommendations = dataset.recommendations.length
-    ? dataset.recommendations
-    : buildRecommendations(dataset.resources, dataset.projects);
-
-  return {
-    resources: dataset.resources,
-    projects: dataset.projects,
-    recommendations
-  };
-}
-
 async function fetchFromApi<T>(path: string): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     cache: "no-store",
@@ -167,11 +208,9 @@ async function fetchFromApi<T>(path: string): Promise<T> {
 }
 
 async function loadDashboard(): Promise<DashboardData> {
-  const fallbackDataset = getDatasetFallback();
-
-  let resources = fallbackDataset.resources;
-  let projects = fallbackDataset.projects;
-  let recommendations = fallbackDataset.recommendations;
+  let resources: Resource[] = [];
+  let projects: Project[] = [];
+  let recommendations: Recommendation[] = [];
   let usingFallback = false;
   let datasetError: string | undefined;
 
@@ -191,9 +230,7 @@ async function loadDashboard(): Promise<DashboardData> {
 
     resources = remoteResources;
     projects = remoteProjects;
-    recommendations = remoteRecommendations.length
-      ? remoteRecommendations
-      : buildRecommendations(remoteResources, remoteProjects);
+    recommendations = remoteRecommendations;
   } catch (error) {
     usingFallback = true;
     datasetError =

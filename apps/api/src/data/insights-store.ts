@@ -36,6 +36,11 @@ export async function loadStoredInsights(): Promise<StoredInsightRecord[]> {
     return [];
   } catch (error) {
     console.error("[api] Falha ao ler insights_store.json:", error);
+    try {
+      await fs.writeFile(STORE_PATH, "[]", "utf-8");
+    } catch (resetError) {
+      console.error("[api] Falha ao resetar insights_store.json:", resetError);
+    }
     return [];
   }
 }
@@ -46,11 +51,11 @@ export async function upsertStoredInsights(records: StoredInsightRecord[]) {
   }
   const existing = await loadStoredInsights();
   const map = new Map<string, StoredInsightRecord>();
-  existing.forEach((record) => {
+  for (const record of existing) {
     map.set(record.resourceId, record);
-  });
-  records.forEach((record) => {
+  }
+  for (const record of records) {
     map.set(record.resourceId, record);
-  });
+  }
   await fs.writeFile(STORE_PATH, JSON.stringify(Array.from(map.values()), null, 2), "utf-8");
 }

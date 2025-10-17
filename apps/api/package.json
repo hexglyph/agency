@@ -12,7 +12,6 @@
     "format": "biome format --write src"
   },
   "dependencies": {
-    "@agency/mock-data": "workspace:*",
     "@elysiajs/cors": "^1.0.2",
     "@elysiajs/swagger": "^1.3.1",
     "elysia": "^1.4.12",

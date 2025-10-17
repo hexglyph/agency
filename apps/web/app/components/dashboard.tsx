@@ -2,13 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import {
-  buildRecommendations,
-  type Project,
-  type Recommendation,
-  type Resource
-} from "@agency/mock-data/browser";
-
 type CatalogMeta = {
   source: string;
   generatedAt: string;
@@ -76,6 +69,66 @@ type CatalogOverview = {
   meta: CatalogMeta;
 };
 
+type ResourceSkill = {
+  id: string;
+  name: string;
+  level?: string | null;
+  source: "competencia" | "tecnologia" | "insight";
+};
+
+type Resource = {
+  id: string;
+  name: string;
+  role?: string;
+  manager?: string;
+  macroArea?: string | null;
+  coordination?: string | null;
+  department?: string | null;
+  availability?: number | null;
+  availabilityHours?: number | null;
+  seniority?: "junior" | "pleno" | "senior" | null;
+  skills: ResourceSkill[];
+  preferredTechs: string[];
+  notes?: string;
+};
+
+type ProjectNeed = {
+  skillId: string;
+  label: string;
+  priority: "alta" | "media" | "baixa";
+};
+
+type Project = {
+  id: string;
+  siglaSistema?: string;
+  nomeSistema?: string;
+  titulo?: string;
+  macroArea?: string;
+  categoriaTecnologica?: string;
+  complexidade?: string;
+  equipeIdeal?: string;
+  observacaoIA?: string;
+  coordination?: string;
+  needs: ProjectNeed[];
+};
+
+type Recommendation = {
+  projectId: string;
+  projectName: string;
+  macroArea?: string;
+  resourceId: string;
+  resourceName: string;
+  matchedSkills: string[];
+  coordinationFit: boolean;
+  score: number;
+  matchDetail: {
+    skillCoverage: number;
+    availabilityScore: number;
+    coordinationScore: number;
+  };
+  notes: string;
+};
+
 type InsightSuggestion = {
   resourceId: string;
   resourceName: string;
@@ -86,6 +139,15 @@ type InsightSuggestion = {
     rationale: string;
   }>;
   developmentIdeas: string[];
+  skillHighlights?: string[];
+  skillGaps?: string[];
+};
+
+type DisplaySkill = {
+  id: string;
+  name: string;
+  level?: string | null;
+  source: "competencia" | "tecnologia" | "insight" | "gap";
 };
 
 type InsightResponse = {
@@ -116,6 +178,7 @@ type EmployeeProfile = {
   resource?: Resource;
   insight?: InsightSuggestion;
   suggestions: Recommendation[];
+  displaySkills: DisplaySkill[];
 };
 
 type EmployeeDetail = {
@@ -124,6 +187,7 @@ type EmployeeDetail = {
   resource?: Resource;
   insight?: InsightSuggestion;
   suggestions: Recommendation[];
+  displaySkills: DisplaySkill[];
 };
 
 type ProjectDetail = {
@@ -266,10 +330,7 @@ function SummaryCard({
 
 export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:3001";
-  const { resources, projects } = data;
-  const recommendations = data.recommendations.length
-    ? data.recommendations
-    : buildRecommendations(resources, projects);
+  const { resources, projects, recommendations } = data;
   const [insightState, setInsightState] = useState(insights);
   useEffect(() => {
     setInsightState(insights);
@@ -393,11 +454,55 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
       const insight = insightByResourceId.get(String(employee.id));
       const suggestions = resourceMatch ? recommendationsByResourceId.get(resourceMatch.id) ?? [] : [];
 
+      const normalizeLabel = (value: string) => value.trim().toLowerCase();
+      const seen = new Set<string>();
+      const displaySkills: DisplaySkill[] = [];
+      const pushDisplaySkill = (
+        name: string | undefined | null,
+        source: DisplaySkill["source"],
+        id: string,
+        level?: string | null
+      ) => {
+        if (!name) {
+          return;
+        }
+        const trimmed = name.trim();
+        if (!trimmed) {
+          return;
+        }
+        const key = normalizeLabel(trimmed);
+        if (seen.has(key)) {
+          return;
+        }
+        seen.add(key);
+        displaySkills.push({
+          id,
+          name: trimmed,
+          level: level ?? null,
+          source
+        });
+      };
+
+      resourceMatch?.skills?.forEach((skill) => {
+        pushDisplaySkill(skill.name, skill.source, skill.id, skill.level);
+      });
+
+      const insightHighlights = (insight?.skillHighlights ?? []).filter(Boolean);
+      insightHighlights.forEach((name, index) => {
+        pushDisplaySkill(name, "insight", `insight-${employee.id}-${index}`);
+      });
+
+      const insightGaps = (insight?.skillGaps ?? []).filter(Boolean);
+      insightGaps.forEach((name, index) => {
+        pushDisplaySkill(name, "gap", `gap-${employee.id}-${index}`);
+      });
+
       return {
         employee,
         resource: resourceMatch,
         insight,
-        suggestions
+        suggestions,
+        displaySkills
       };
     });
   }, [catalog.employees, resourceByName, insightByResourceId, recommendationsByResourceId]);
@@ -477,7 +582,7 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
         profile.employee.manager?.trim(),
         macroArea,
         resource?.department,
-        resource?.skills?.map((skill) => skill.name).join(" "),
+        profile.displaySkills.map((skill) => skill.name).join(" "),
         resource?.preferredTechs?.join(" "),
         profile.employee.languages?.map((language) => `${language.name} ${language.level ?? ""}`).join(" "),
         profile.employee.formations?.map((formation) => `${formation.name} ${formation.level ?? ""}`).join(" "),
@@ -673,7 +778,8 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
       employee: profile.employee,
       resource: profile.resource,
       insight: profile.insight,
-      suggestions: profile.suggestions
+      suggestions: profile.suggestions,
+      displaySkills: profile.displaySkills
     });
   };
   const openProject = (project: Project) => {
@@ -923,7 +1029,7 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
             ]
               .filter(Boolean)
               .join(" • ")
-          : 'Clique em "Reexecutar diagnostico" para validar a conexao com Azure.'
+          : "Clique em &quot;Reexecutar diagnostico&quot; para validar a conexao com Azure."
       },
       {
         title: "Insights Azure OpenAI",
@@ -1042,21 +1148,45 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
                       </li>
                     </ul>
                       {detail.resource.notes ? <p className="muted">{detail.resource.notes}</p> : null}
-                      {detail.resource.skills && detail.resource.skills.length ? (
-                        <>
-                          <h4>Skills destacadas</h4>
-                          <ul className="pill-group">
-                            {detail.resource.skills.slice(0, 12).map((skill) => (
-                              <li className="pill" key={`${detail.resource?.id}-${skill.name}`}>
-                                {skill.name}
-                              </li>
-                            ))}
-                          </ul>
-                        </>
-                      ) : null}
                       {detail.resource.preferredTechs && detail.resource.preferredTechs.length ? (
                         <p className="muted">
                           Tecnologias-chave: {detail.resource.preferredTechs.slice(0, 6).join(", ")}
+                        </p>
+                      ) : null}
+                    </section>
+                  ) : null}
+                  {detail.displaySkills.length ? (
+                    <section className="detail-section">
+                      <h3>Competências mapeadas</h3>
+                      <ul className="pill-group">
+                        {detail.displaySkills.slice(0, 20).map((skill, index) => (
+                          <li className={`pill pill-${skill.source}`} key={`${detail.employee.id}-${skill.id}-${index}`}>
+                            {skill.name}
+                            {skill.source !== "insight" && skill.source !== "gap" && skill.level ? (
+                              <span className="pill-badge">{skill.level}</span>
+                            ) : null}
+                          </li>
+                        ))}
+                      </ul>
+                      {detail.displaySkills.some((skill) => skill.source === "gap") ? (
+                        <p className="muted">
+                          Aprimorar:{" "}
+                          {detail.displaySkills
+                            .filter((skill) => skill.source === "gap")
+                            .map((skill) => skill.name)
+                            .join(", ")}
+                        </p>
+                      ) : null}
+                      {detail.displaySkills.some((skill) => skill.source === "insight") &&
+                      !detail.displaySkills.some(
+                        (skill) => skill.source === "competencia" || skill.source === "tecnologia"
+                      ) ? (
+                        <p className="muted">
+                          Skills observadas pela IA:{" "}
+                          {detail.displaySkills
+                            .filter((skill) => skill.source === "insight")
+                            .map((skill) => skill.name)
+                            .join(", ")}
                         </p>
                       ) : null}
                     </section>
@@ -1291,7 +1421,7 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
           </div>
         ) : (
           <div className="empty-state">
-            Clique em "Reexecutar diagnostico" para validar a conexao com Azure OpenAI.
+            Clique em &quot;Reexecutar diagnostico&quot; para validar a conexao com Azure OpenAI.
           </div>
         )}
       </section>
@@ -1365,9 +1495,16 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
             <tbody>
               {paginatedProfiles.length ? (
                 paginatedProfiles.map((profile) => {
-                  const { employee, resource } = profile;
+                  const { employee, resource, displaySkills } = profile;
                   const employeeId = String(employee.id);
                   const isSelected = selectedEmployees.has(employeeId);
+                  const insightSkillHighlights = displaySkills.filter((skill) => skill.source === "insight");
+                  const insightSkillGaps = displaySkills.filter((skill) => skill.source === "gap");
+                  const baseSkillCount = displaySkills.filter(
+                    (skill) => skill.source === "competencia" || skill.source === "tecnologia"
+                  ).length;
+                  const hasInsightHighlights = insightSkillHighlights.length > 0;
+                  const hasInsightGaps = insightSkillGaps.length > 0;
                   return (
                     <tr key={employee.id}>
                       <td>
@@ -1437,10 +1574,20 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
                               .join(", ")}
                           </span>
                         ) : null}
-                      {resource?.preferredTechs && resource.preferredTechs.length ? (
-                        <p className="muted">Tecnologias-chave: {resource.preferredTechs.join(", ")}</p>
-                      ) : null}
-                    </td>
+                        {resource?.preferredTechs && resource.preferredTechs.length ? (
+                          <p className="muted">Tecnologias-chave: {resource.preferredTechs.join(", ")}</p>
+                        ) : null}
+                        {hasInsightGaps ? (
+                          <p className="muted">
+                            Aprimorar: {insightSkillGaps.slice(0, 6).map((skill) => skill.name).join(", ")}
+                          </p>
+                        ) : null}
+                        {hasInsightHighlights && baseSkillCount === 0 ? (
+                          <p className="muted">
+                            Skills observadas: {insightSkillHighlights.slice(0, 6).map((skill) => skill.name).join(", ")}
+                          </p>
+                        ) : null}
+                      </td>
                       <td>
                         <button
                           type="button"
@@ -1806,7 +1953,8 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
             </thead>
             <tbody>
               {sortedProfiles.length ? (
-                sortedProfiles.map((profile) => (
+                sortedProfiles.map((profile) => {
+                  return (
                 <tr key={profile.employee.id}>
                   <td>
                     <strong>
@@ -1841,14 +1989,13 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
                   </td>
                   <td>
                     <ul className="pill-group">
-                      {profile.resource?.skills?.length ? (
-                        profile.resource.skills.slice(0, 12).map((skill) => (
-                          <li
-                            className={`pill pill-${skill.source ?? "competencia"}`}
-                            key={`${profile.employee.id}-${skill.id}`}
-                          >
+                      {profile.displaySkills.length ? (
+                        profile.displaySkills.slice(0, 12).map((skill, index) => (
+                          <li className={`pill pill-${skill.source}`} key={`${profile.employee.id}-${skill.id}-${index}`}>
                             {skill.name}
-                            <span className="pill-badge">{skill.level}</span>
+                            {skill.source !== "insight" && skill.source !== "gap" && skill.level ? (
+                              <span className="pill-badge">{skill.level}</span>
+                            ) : null}
                           </li>
                         ))
                       ) : (
@@ -1858,6 +2005,29 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
                     {profile.resource?.preferredTechs && profile.resource.preferredTechs.length ? (
                       <span className="muted">
                         Tecnologias-chave: {profile.resource.preferredTechs.slice(0, 8).join(", ")}
+                      </span>
+                    ) : null}
+                    {profile.displaySkills.some((skill) => skill.source === "gap") ? (
+                      <span className="muted">
+                        Aprimorar:{" "}
+                        {profile.displaySkills
+                          .filter((skill) => skill.source === "gap")
+                          .slice(0, 8)
+                          .map((skill) => skill.name)
+                          .join(", ")}
+                      </span>
+                    ) : null}
+                    {profile.displaySkills.some((skill) => skill.source === "insight") &&
+                    !profile.displaySkills.some(
+                      (skill) => skill.source === "competencia" || skill.source === "tecnologia"
+                    ) ? (
+                      <span className="muted">
+                        Skills observadas:{" "}
+                        {profile.displaySkills
+                          .filter((skill) => skill.source === "insight")
+                          .slice(0, 8)
+                          .map((skill) => skill.name)
+                          .join(", ")}
                       </span>
                     ) : null}
                     {profile.insight?.suggestedProjects.length ? (
@@ -1880,7 +2050,8 @@ export function Dashboard({ data, catalog, insights, meta }: DashboardProps) {
                     ) : null}
                   </td>
                 </tr>
-              ))
+                  );
+                })
               ) : (
                 <tr>
                   <td colSpan={4}>

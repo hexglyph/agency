@@ -245,6 +245,16 @@ tbody tr:hover {
   color: #0c4a6e;
 }
 
+.pill-insight {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.pill-gap {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
 .pill-empty {
   background: #e2e8f0;
   color: #64748b;

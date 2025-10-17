@@ -128,7 +128,8 @@ type InsightResource = {
   coordination?: string;
   macroArea?: string;
   availability?: number;
-  skills?: Array<{ name: string }>;
+  skills?: Array<{ name: string; level?: string }>;
+  preferredTechs?: string[];
 };
 
 type InsightProject = {
@@ -163,6 +164,8 @@ export type InsightSuggestion = {
     rationale: string;
   }>;
   developmentIdeas: string[];
+  skillHighlights?: string[];
+  skillGaps?: string[];
 };
 
 type CandidateMatch = {
@@ -208,28 +211,15 @@ function computeCandidateProfiles(payload: InsightPayload): CandidateProfile[] {
   const projectNameLookup = new Map(payload.projects.map((project) => [normalizeLabel(project.name ?? ""), project]));
 
   const grouped = new Map<string, InsightRecommendation[]>();
-  payload.recommendations.forEach((recommendation) => {
+  for (const recommendation of payload.recommendations) {
     const list = grouped.get(recommendation.resourceId) ?? [];
     list.push(recommendation);
     grouped.set(recommendation.resourceId, list);
-  });
-
-  const fallbackByMacroArea = new Map<string, InsightProject[]>();
-  payload.projects.forEach((project) => {
-    if (!project.macroArea) {
-      return;
-    }
-    const key = normalizeLabel(project.macroArea);
-    const list = fallbackByMacroArea.get(key) ?? [];
-    if (list.length < 5) {
-      list.push(project);
-      fallbackByMacroArea.set(key, list);
-    }
-  });
+  }
 
   const profiles: CandidateProfile[] = [];
 
-  resourceLookup.forEach((resource, resourceId) => {
+  for (const [resourceId, resource] of resourceLookup) {
     const recommendations = grouped.get(resourceId) ?? [];
     const sorted = [...recommendations].sort((a, b) => b.score - a.score).slice(0, 3);
 
@@ -255,20 +245,7 @@ function computeCandidateProfiles(payload: InsightPayload): CandidateProfile[] {
         };
       });
     } else {
-      const macroKey = resource.macroArea ? normalizeLabel(resource.macroArea) : null;
-      const fallback = macroKey ? fallbackByMacroArea.get(macroKey) : undefined;
-      const projects = fallback && fallback.length ? fallback : payload.projects.slice(0, 3);
-
-      matches = projects.map((project) => ({
-        recommendation: {
-          resourceId,
-          projectId: project.id,
-          projectName: project.name,
-          score: 0,
-          matchedSkills: []
-        },
-        missingSkills: project.needs.map((need) => need.label)
-      }));
+      matches = [];
     }
 
     const averageScore =
@@ -281,13 +258,28 @@ function computeCandidateProfiles(payload: InsightPayload): CandidateProfile[] {
       matches,
       averageScore
     });
-  });
+  }
 
   return profiles.sort((a, b) => b.averageScore - a.averageScore).slice(0, 5);
 }
 
 function buildHeuristicSuggestion(profile: CandidateProfile): InsightSuggestion {
   const { resource, matches, averageScore } = profile;
+
+  const addUnique = (target: string[], value: string | undefined | null) => {
+    if (!value) {
+      return;
+    }
+    const trimmed = value.trim();
+    if (!trimmed) {
+      return;
+    }
+    const normalized = normalizeLabel(trimmed);
+    if (target.some((entry) => normalizeLabel(entry) === normalized)) {
+      return;
+    }
+    target.push(trimmed);
+  };
 
   const projectsList = matches
     .map(({ recommendation }) => recommendation.projectName || recommendation.projectId || "Projeto sem nome")
@@ -309,7 +301,7 @@ function buildHeuristicSuggestion(profile: CandidateProfile): InsightSuggestion 
     `Score medio ${Math.round(averageScore * 100)}%`
   ];
 
-  const summary = summarySegments.filter(Boolean).join(". ") + ".";
+  const summary = `${summarySegments.filter(Boolean).join(". ")}.`;
 
   const suggestedProjects = matches.map(({ recommendation, missingSkills }) => ({
     projectId: recommendation.projectId,
@@ -323,10 +315,40 @@ function buildHeuristicSuggestion(profile: CandidateProfile): InsightSuggestion 
       .join(" • ")
   }));
 
-  const missingSkillPool = matches.flatMap((match) => match.missingSkills);
+  const skillHighlights: string[] = [];
+  for (const skill of resource.skills ?? []) {
+    addUnique(skillHighlights, skill.name);
+  }
+  for (const tech of resource.preferredTechs ?? []) {
+    addUnique(skillHighlights, tech);
+  }
+  for (const match of matches) {
+    for (const skill of match.recommendation.matchedSkills) {
+      addUnique(skillHighlights, skill);
+    }
+  }
+
+  const skillGaps: string[] = [];
+  for (const match of matches) {
+    for (const skill of match.missingSkills) {
+      if (!skill) {
+        continue;
+      }
+      const normalized = normalizeLabel(skill);
+      if (!normalized) {
+        continue;
+      }
+      const alreadyCovered = skillHighlights.some((entry) => normalizeLabel(entry) === normalized);
+      const alreadyListed = skillGaps.some((entry) => normalizeLabel(entry) === normalized);
+      if (!alreadyCovered && !alreadyListed) {
+        addUnique(skillGaps, skill);
+      }
+    }
+  }
+
   const developmentIdeas =
-    missingSkillPool.length > 0
-      ? [`Planejar desenvolvimento em ${Array.from(new Set(missingSkillPool)).join(", ")}.`]
+    skillGaps.length > 0
+      ? [`Planejar desenvolvimento em ${skillGaps.join(", ")}.`]
       : ["Mapear competencias complementares e alinhar proxima alocacao com gestor responsavel."];
 
   return {
@@ -334,7 +356,9 @@ function buildHeuristicSuggestion(profile: CandidateProfile): InsightSuggestion 
     resourceName: resource.name,
     summary,
     suggestedProjects,
-    developmentIdeas
+    developmentIdeas,
+    skillHighlights,
+    skillGaps
   };
 }
 
@@ -382,9 +406,9 @@ function mergeAzureWithHeuristics(heuristics: InsightSuggestion[], azure: unknow
   const heuristicMap = new Map(heuristics.map((item) => [item.resourceId, item]));
   const merged = new Map<string, InsightSuggestion>();
 
-  azure.forEach((entry) => {
+  for (const entry of azure) {
     if (!entry || typeof entry !== "object") {
-      return;
+      continue;
     }
     const raw = entry as {
       resourceId?: string | number;
@@ -396,12 +420,12 @@ function mergeAzureWithHeuristics(heuristics: InsightSuggestion[], azure: unknow
 
     const resourceId = raw.resourceId !== undefined ? String(raw.resourceId) : undefined;
     if (!resourceId) {
-      return;
+      continue;
     }
 
     const base = heuristicMap.get(resourceId);
     if (!base) {
-      return;
+      continue;
     }
 
     const suggestedProjects =
@@ -421,14 +445,32 @@ function mergeAzureWithHeuristics(heuristics: InsightSuggestion[], azure: unknow
         ? raw.developmentIdeas.map((idea) => String(idea))
         : base.developmentIdeas;
 
+    const skillHighlights =
+      Array.isArray((raw as { skillHighlights?: unknown[] }).skillHighlights) &&
+      (raw as { skillHighlights?: unknown[] }).skillHighlights?.length
+        ? ((raw as { skillHighlights?: unknown[] }).skillHighlights as unknown[])
+            .map((entry) => String(entry))
+            .filter(Boolean)
+        : base.skillHighlights;
+
+    const skillGaps =
+      Array.isArray((raw as { skillGaps?: unknown[] }).skillGaps) &&
+      (raw as { skillGaps?: unknown[] }).skillGaps?.length
+        ? ((raw as { skillGaps?: unknown[] }).skillGaps as unknown[])
+            .map((entry) => String(entry))
+            .filter(Boolean)
+        : base.skillGaps;
+
     merged.set(resourceId, {
       resourceId,
       resourceName: raw.resourceName ?? base.resourceName,
       summary: raw.summary ?? base.summary,
       suggestedProjects,
-      developmentIdeas
+      developmentIdeas,
+      skillHighlights,
+      skillGaps
     });
-  });
+  }
 
   return heuristics.map((item) => merged.get(item.resourceId) ?? item);
 }

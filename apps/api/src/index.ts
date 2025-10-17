@@ -1,12 +1,12 @@
 import { cors } from "@elysiajs/cors";
 import { swagger } from "@elysiajs/swagger";
-import { buildRecommendations, loadMockData, type MockDataset, type Project, type Resource } from "@agency/mock-data";
 import { Elysia, t } from "elysia";
 
 import { loadProdAmCatalog } from "./data/prodam";
 import { loadStoredInsights } from "./data/insights-store";
 import { debugAzureConnection, generateInsights, runAzureOpenAiPing } from "./services/azure-openai";
 import { runtimeEnv } from "./config/env";
+import { buildDataset, type Dataset } from "./data/dataset";
 
 process.on("unhandledRejection", (reason) => {
   console.error("[api] Unhandled promise rejection:", reason);
@@ -16,114 +16,11 @@ process.on("uncaughtException", (error) => {
   console.error("[api] Uncaught exception:", error);
 });
 
-function createFallbackDataset(): MockDataset {
-  const fallbackResources: Resource[] = [
-    {
-      id: "f-001",
-      name: "Ana Souza",
-      macroArea: "Inovacao Digital",
-      coordination: "Inovacao Digital",
-      management: "Solucoes",
-      department: "Diretoria Tecnologia",
-      seniority: "senior",
-      availabilityHours: 64,
-      availability: 0.4,
-      skills: [
-        { id: "ia-aplicada", name: "IA aplicada", level: "senior", source: "competencia" },
-        { id: "engenharia-de-dados", name: "Engenharia de dados", level: "senior", source: "competencia" }
-      ],
-      preferredTechs: ["IA aplicada", "Engenharia de dados"]
-    },
-    {
-      id: "f-002",
-      name: "Bruno Lima",
-      macroArea: "Infraestrutura",
-      coordination: "Infraestrutura",
-      management: "Operacoes",
-      department: "Diretoria Tecnologia",
-      seniority: "pleno",
-      availabilityHours: 32,
-      availability: 0.2,
-      skills: [
-        { id: "azure-cloud", name: "Azure cloud", level: "pleno", source: "competencia" },
-        { id: "devops", name: "DevOps", level: "pleno", source: "competencia" }
-      ],
-      preferredTechs: ["Azure", "DevOps"]
-    },
-    {
-      id: "f-003",
-      name: "Carla Nunes",
-      macroArea: "Atendimento",
-      coordination: "Atendimento",
-      management: "Clientes",
-      department: "Diretoria Servicos",
-      seniority: "pleno",
-      availabilityHours: 96,
-      availability: 0.6,
-      skills: [{ id: "devops", name: "DevOps", level: "pleno", source: "competencia" }],
-      preferredTechs: ["DevOps", "Service Desk"]
-    }
-  ];
+let dataset: Dataset = await buildDataset();
 
-  const fallbackProjects: Project[] = [
-    {
-      id: "p-analytics",
-      siglaSistema: "ANALYTICS",
-      nomeSistema: "Analytics Prefeitura",
-      titulo: "Analytics Prefeitura",
-      macroArea: "Solucoes Digitais",
-      categoriaTecnologica: "Data & Analytics",
-      complexidade: "Media",
-      equipeIdeal: "1 PO | 2 Eng Dados | 1 Cientista de Dados",
-      observacaoIA: "Mock gerado automaticamente.",
-      coordination: "Solucoes Digitais",
-      needs: [
-        { skillId: "engenharia-de-dados", label: "Engenharia de dados", priority: "alta" },
-        { skillId: "ia-aplicada", label: "IA aplicada", priority: "media" }
-      ]
-    },
-    {
-      id: "p-modernizacao",
-      siglaSistema: "MOD-DATACENTER",
-      nomeSistema: "Modernizacao Data Center",
-      titulo: "Modernizacao Data Center",
-      macroArea: "Infraestrutura",
-      categoriaTecnologica: "Cloud & DevOps",
-      complexidade: "Alta",
-      equipeIdeal: "1 Arquiteto Cloud | 2 DevOps | 1 SRE",
-      observacaoIA: "Mock gerado automaticamente.",
-      coordination: "Infraestrutura",
-      needs: [
-        { skillId: "azure-cloud", label: "Azure cloud", priority: "alta" },
-        { skillId: "devops", label: "DevOps", priority: "media" }
-      ]
-    }
-  ];
-
-  return {
-    resources: fallbackResources,
-    projects: fallbackProjects,
-    recommendations: buildRecommendations(fallbackResources, fallbackProjects)
-  };
+async function refreshDataset() {
+  dataset = await buildDataset();
 }
-
-function loadDataset(): MockDataset {
-  try {
-    return loadMockData();
-  } catch (error) {
-    console.error("[api] Falha ao carregar dataset mock:", error);
-    return createFallbackDataset();
-  }
-}
-
-const dataset = loadDataset();
-const resources = dataset.resources;
-const projects = dataset.projects;
-const recommendations =
-  dataset.recommendations.length > 0 ? dataset.recommendations : buildRecommendations(resources, projects);
-const resourcesByName = new Map(
-  resources.map((resource) => [resource.name.trim().toLowerCase(), resource])
-);
 
 const app = new Elysia()
   .use(
@@ -165,9 +62,9 @@ const app = new Elysia()
       endpoint: runtimeEnv.azure.endpoint
     }
   }))
-  .get("/v1/resources", () => resources)
-  .get("/v1/projects", () => projects)
-  .get("/v1/recommendations", () => recommendations)
+  .get("/v1/resources", () => dataset.resources)
+  .get("/v1/projects", () => dataset.projects)
+  .get("/v1/recommendations", () => dataset.recommendations)
   .post(
     "/v1/ai/ping",
     async ({ body }) => {
@@ -194,44 +91,53 @@ const app = new Elysia()
       const hasAllEmployees = catalog.employees.every((employee) =>
         storedMap.has(String(employee.id))
       );
-      if (hasAllEmployees) {
-        const latest = stored.reduce((acc, record) =>
-          new Date(record.generatedAt).getTime() > new Date(acc.generatedAt).getTime() ? record : acc
-        );
-        return {
-          generatedAt: latest.generatedAt,
-          usingAzure: stored.some((record) => record.usingAzure),
-          model: latest.model,
-          latencyMs: latest.latencyMs,
-          insights: stored.map(
-            ({ resourceId, resourceName, summary, suggestedProjects, developmentIdeas }) => ({
-              resourceId,
-              resourceName,
-              summary,
-              suggestedProjects,
-              developmentIdeas
-            })
-          ),
-          rawAzureResponse: latest.rawAzureResponse
-        };
-      }
+      const latest = stored.reduce((acc, record) =>
+        new Date(record.generatedAt).getTime() > new Date(acc.generatedAt).getTime() ? record : acc
+      );
+      return {
+        generatedAt: latest.generatedAt,
+        usingAzure: stored.some((record) => record.usingAzure),
+        model: latest.model,
+        latencyMs: latest.latencyMs,
+        insights: stored.map(
+          ({
+            resourceId,
+            resourceName,
+            summary,
+            suggestedProjects,
+            developmentIdeas,
+            skillHighlights,
+            skillGaps
+          }) => ({
+            resourceId,
+            resourceName,
+            summary,
+            suggestedProjects,
+            developmentIdeas,
+            skillHighlights,
+            skillGaps
+          })
+        ),
+        rawAzureResponse: latest.rawAzureResponse,
+        error: hasAllEmployees
+          ? undefined
+          : `Insights parciais: ${stored.length} de ${catalog.employees.length} colaboradores analisados.`
+      };
     }
 
-    const resourceIdToEmployeeId = new Map<string, string>();
+    const resourceLookup = new Map(dataset.resources.map((resource) => [resource.id, resource]));
     const mergedResources = catalog.employees.map((employee) => {
-      const match = resourcesByName.get(employee.displayName.trim().toLowerCase());
-      if (match) {
-        resourceIdToEmployeeId.set(match.id, String(employee.id));
-      }
+      const resourceMatch = resourceLookup.get(String(employee.id));
       return {
         id: String(employee.id),
         name: employee.displayName,
         role: employee.role,
         manager: employee.manager,
-        coordination: match?.coordination,
-        macroArea: match?.macroArea,
-        availability: match?.availability,
-        skills: match?.skills?.map((skill) => ({ name: skill.name })),
+        coordination: resourceMatch?.coordination ?? employee.manager ?? null,
+        macroArea: resourceMatch?.macroArea ?? null,
+        availability: resourceMatch?.availability ?? null,
+        skills: resourceMatch?.skills?.map((skill) => ({ name: skill.name, level: skill.level })) ?? [],
+        preferredTechs: resourceMatch?.preferredTechs ?? [],
         languages: employee.languages?.map((language) => ({
           name: language.name,
           level: language.level
@@ -243,11 +149,11 @@ const app = new Elysia()
       };
     });
 
-    return generateInsights({
+    const result = await generateInsights({
       resources: mergedResources,
-      projects: projects.map((project) => ({
+      projects: dataset.projects.map((project) => ({
         id: project.id,
-        name: project.name,
+        name: project.titulo || project.nomeSistema || project.siglaSistema || project.id,
         macroArea: project.macroArea,
         coordination: project.coordination,
         needs: project.needs.map((need) => ({
@@ -255,22 +161,17 @@ const app = new Elysia()
           skillId: need.skillId
         }))
       })),
-      recommendations: recommendations
-        .map((recommendation) => {
-          const employeeId = resourceIdToEmployeeId.get(recommendation.resourceId);
-          if (!employeeId) {
-            return null;
-          }
-          return {
-            resourceId: employeeId,
-            projectId: recommendation.projectId,
-            projectName: recommendation.projectName,
-            score: recommendation.score,
-            matchedSkills: recommendation.matchedSkills
-          };
-        })
-        .filter((item): item is NonNullable<typeof item> => Boolean(item))
+      recommendations: dataset.recommendations.map((recommendation) => ({
+        resourceId: recommendation.resourceId,
+        projectId: recommendation.projectId,
+        projectName: recommendation.projectName,
+        score: recommendation.score,
+        matchedSkills: recommendation.matchedSkills
+      }))
     });
+
+    await refreshDataset();
+    return result;
   })
   .post("/v1/insights", async ({ body }) => {
     const ids =
@@ -292,21 +193,19 @@ const app = new Elysia()
       };
     }
 
-    const resourceIdToEmployeeId = new Map<string, string>();
+    const resourceLookup = new Map(dataset.resources.map((resource) => [resource.id, resource]));
     const mergedResources = selectedEmployees.map((employee) => {
-      const match = resourcesByName.get(employee.displayName.trim().toLowerCase());
-      if (match) {
-        resourceIdToEmployeeId.set(match.id, String(employee.id));
-      }
+      const resourceMatch = resourceLookup.get(String(employee.id));
       return {
         id: String(employee.id),
         name: employee.displayName,
         role: employee.role,
         manager: employee.manager,
-        coordination: match?.coordination,
-        macroArea: match?.macroArea,
-        availability: match?.availability,
-        skills: match?.skills?.map((skill) => ({ name: skill.name })),
+        coordination: resourceMatch?.coordination ?? employee.manager ?? null,
+        macroArea: resourceMatch?.macroArea ?? null,
+        availability: resourceMatch?.availability ?? null,
+        skills: resourceMatch?.skills?.map((skill) => ({ name: skill.name, level: skill.level })) ?? [],
+        preferredTechs: resourceMatch?.preferredTechs ?? [],
         languages: employee.languages?.map((language) => ({
           name: language.name,
           level: language.level
@@ -318,13 +217,13 @@ const app = new Elysia()
       };
     });
 
-    const employeeIdSet = new Set(mergedResources.map((resource) => resource.id));
+    const selectedResourceIds = new Set(mergedResources.map((resource) => resource.id));
 
-    return generateInsights({
+    const result = await generateInsights({
       resources: mergedResources,
-      projects: projects.map((project) => ({
+      projects: dataset.projects.map((project) => ({
         id: project.id,
-        name: project.name,
+        name: project.titulo || project.nomeSistema || project.siglaSistema || project.id,
         macroArea: project.macroArea,
         coordination: project.coordination,
         needs: project.needs.map((need) => ({
@@ -332,22 +231,19 @@ const app = new Elysia()
           skillId: need.skillId
         }))
       })),
-      recommendations: recommendations
-        .map((recommendation) => {
-          const employeeId = resourceIdToEmployeeId.get(recommendation.resourceId);
-          if (!employeeId || !employeeIdSet.has(employeeId)) {
-            return null;
-          }
-          return {
-            resourceId: employeeId,
-            projectId: recommendation.projectId,
-            projectName: recommendation.projectName,
-            score: recommendation.score,
-            matchedSkills: recommendation.matchedSkills
-          };
-        })
-        .filter((item): item is NonNullable<typeof item> => Boolean(item))
+      recommendations: dataset.recommendations
+        .filter((recommendation) => selectedResourceIds.has(recommendation.resourceId))
+        .map((recommendation) => ({
+          resourceId: recommendation.resourceId,
+          projectId: recommendation.projectId,
+          projectName: recommendation.projectName,
+          score: recommendation.score,
+          matchedSkills: recommendation.matchedSkills
+        }))
     });
+
+    await refreshDataset();
+    return result;
   })
   .get("/debug", async () => {
     const diagnostics = await debugAzureConnection();

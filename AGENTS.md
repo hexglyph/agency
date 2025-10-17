@@ -1,35 +1,66 @@
-# Repository Guidelines
+# Guia para Agentes
 
-Este guia orienta contribuicoes para a plataforma de gestao de recursos PRODAM construida sobre Bun, Next.js e Elysia.
+Este documento resume a aplicacao atual da plataforma de gestao de recursos PRODAM para acelerar o onboarding de agentes automatizados ou humanos.
 
-## Project Structure & Module Organization
-- `apps/web` - Frontend Next.js (App Router) com dashboards e fluxos de aprovacao.
-- `apps/api` - API Bun/Elysia com rotas REST, camada de dominio e docs Swagger.
-- `packages/` - Espaco opcional para libs compartilhadas caso surjam (schemas, SDKs).
-- `areas.json`, `diretorias.json`, `jobs.json`, `managers.json`, `funcionarios.json` - Catalogos PRODAM carregados pela API (rotas `/v1/catalog/*`); mantenha-os em UTF-8.
-- `infra/`, `docs/` - Reserve para IaC, diagramas e especificacoes formais.
+## Visao Geral
+- Monorepo em Bun que integra Next.js (frontend), Elysia (API) e bibliotecas internas para recomendacao de talentos e projetos.
+- Dados primarios vêm de CSVs e JSONs da PRODAM, enriquecidos com heuristicas locais e, quando habilitado, com Azure OpenAI.
+- O frontend consome a API em tempo real e apresenta dashboards de alocacao, catalogos institucionais e insights de carreira.
 
-## Build, Test, and Development Commands
-Use os scripts Bun centralizados:
-```bash
-bun install           # Instala dependencias de todos os workspaces
-bun run dev:web       # Inicia Next.js em http://localhost:3000
-bun run dev:api       # Inicia Elysia em http://localhost:3001
-bun run lint          # Executa lint (Next + Biome)
-bun run test          # Executa suites de testes (Bun test)
-bun run scrape:umanni # Atualiza funcionarios.json via scraper (requer cookie Umanni)
-```
-Atualize pacotes e scripts sempre via workspace para manter lockfiles coerentes. Copie `apps/api/.env.example` para `.env.local` antes de subir a API e defina `NEXT_PUBLIC_API_BASE_URL` quando o frontend apontar para ambientes remotos.
+## Estrutura do Monorepo
+- `apps/web` – Next.js App Router. Renderiza o dashboard principal, chama a API via `fetch` e aplica fallback local quando a API nao responde.
+- `apps/api` – API Elysia/Bun. Expone rotas REST, gere insights, faz merge de catalogos PRODAM e armazena respostas do Azure.
+- `packages/mock-data` – Biblioteca que carrega CSVs (`ExportacaoDemanda.csv`, `mock/mock_*`) e monta recursos, projetos e recomendacoes (com heuristica `buildRecommendations`).
+- `packages/umanni-scraper` – Scraper CLI para enriquecer `funcionarios.json` com dados do Umanni. Requer cookie de sessao.
+- `areas.json`, `diretorias.json`, `jobs.json`, `managers.json`, `funcionarios.json` – Catalogos PRODAM consumidos pela API (`/v1/catalog/overview`). UTF-8.
+- `insights_store.json` – Cache local das ultimas recomendacoes de insights geradas pela API (com heuristica ou Azure).
 
-## Coding Style & Naming Conventions
-TypeScript 5+, React 18, Elysia 1.x. Formate com `prettier` no web e `biome` nos pacotes/backend. Tipagem estrita; evite `any`. Nomeie arquivos e pastas em kebab-case, componentes em PascalCase, utilitarios em camelCase. Centralize constantes globais em modulos dedicados por app (ex.: `apps/api/src/config/weights.ts`) e evite duplicar chaves de env; documente novas variaveis em `.env.example`.
+## Fluxo de Dados e IA
+- Mock dataset: `packages/mock-data` gera recursos e projetos a partir dos CSVs. A API usa o dataset pre-carregado, com fallback hardcoded (`createFallbackDataset`) se leitura falhar.
+- Catalogo PRODAM: `apps/api/src/data/prodam.ts` agrupa os JSONs e normaliza nomes, niveis e gestores.
+- Insights: `generateInsights` combina recursos catalogados com matchings do mock dataset. Se Azure estiver configurado, chama `/chat/completions`; senao, retorna heuristicas locais. Resultados sao salvos em `insights_store.json` para respostas subsequentes.
+- Scraper Umanni (`bun run scrape:umanni`): atualiza `funcionarios.json` com formacoes, experiencias e linguas coletadas via HTML scraping autenticado.
 
-## Testing Guidelines
-Padrao: `bun test` para unidades, `playwright` (ou similar) para fluxos E2E, `supertest` para rotas da API. Mantenha cobertura minima de 80% por workspace. Nomeie testes como `<feature>.spec.ts` (unit) e `<feature>.e2e.ts` (integracao). Falsifique chamadas ao Azure OpenAI com fixtures deterministicas e capture feedback dos gestores para testar logica de recomendacao.
+## API (apps/api)
+- Servidor Elysia com middlewares de CORS e Swagger (docs geradas em `/swagger`).
+- Rotas principais:
+  - `GET /health` – status, dataset carregado e configuracao do Azure.
+  - `GET /v1/resources` / `GET /v1/projects` / `GET /v1/recommendations` – dados mockados ou fallback.
+  - `POST /v1/ai/ping` – chama Azure OpenAI com prompt rapido para diagnostico.
+  - `GET /v1/catalog/overview` – retorna catalogo PRODAM (areas, diretorias, cargos, gestores, funcionarios).
+  - `GET /v1/insights` – gera ou carrega insights para todos os colaboradores.
+  - `POST /v1/insights` – reprocessa insights filtrando por `resourceIds` no corpo.
+  - `GET /debug` – verifica conectividade com Azure OpenAI.
+- Configuracao: `apps/api/src/config/env.ts` usa Zod para validar envs e sinaliza se o Azure esta operacional (`runtimeEnv.azure.configured`).
 
-## Commit & Pull Request Guidelines
-Adote Conventional Commits (`feat(api): criar endpoint de recomendacoes`). PRs devem incluir descricao objetiva, cenarios de teste executados, screenshots ou curls relevantes e links para tarefas/OKRs. Squash commits redundantes antes do merge; mantenha branches focadas. Configure revisores obrigatorios quando o PR impactar AI, seguranca ou integracoes legadas.
+## Frontend (apps/web)
+- `app/page.tsx` carrega dados server-side (`loadDashboard`) via `fetch` contra a API. Quando algum endpoint falha, aplica fallback local com `packages/mock-data` e sinaliza estado em `meta`.
+- `app/components/dashboard.tsx` (client component) concentra a UI: filtros de recomendacao, lista de insights, busca de colaboradores/projetos e painel de diagnostico do Azure (`/debug`).
+- Estilos centralizados em `app/globals.css`. Nao ha design system externo; componentes sao autorais.
 
-## Security & Configuration Tips
-Segredos residem apenas em `.env.local`; sempre publique `.env.example` atualizado. Registre acesso ao Azure, Data Factory e bases internas com permissao minima. Revise outputs do modelo para evitar vazamento de PII e adicione camadas de sanitizacao nos prompts. Audite dependencias com `bun audit` e planeje rotacao imediata de chaves comprometidas.
-- Para o scraper Umanni, nao versione cookies; defina `UMANNI_SESSION_COOKIE` via variaveis de ambiente ou secret managers e mantenha a concorrencia ajustada para evitar bloqueios.
+## Bibliotecas Compartilhadas
+- `@agency/mock-data` exporta tipos, parser CSV, utilidades (slugify, normalizacao) e heuristicas de compatibilidade. Possui entrada `browser.ts` para uso no Next.js (sem `fs`).
+- `@agency/umanni-scraper` e executado via Bun; carrega envs de `.env.local` ou `.env` (variavel `UMANNI_ENV_FILES`).
+
+## Dados e Armazenamento
+- CSVs e JSONs residem na raiz. Mantenha-os versionados em UTF-8 (exceto `ExportacaoDemanda.csv`, Latin-1).
+- `insights_store.json` e gerenciado pela API. Nao edite manualmente; limpe-o se precisar forcar reprocessamento.
+- Novos campos nos JSONs devem ser suportados em `data/prodam.ts` e refletidos no frontend.
+
+## Scripts Bun
+- `bun install` – instala todas as dependencias do monorepo.
+- `bun run dev:web` – Next.js em `http://localhost:3000` (requer `NEXT_PUBLIC_API_BASE_URL` se apontar para API remota).
+- `bun run dev:api` – API Elysia em `http://localhost:3001` (carrega dataset e valida envs).
+- `bun run lint` – Lint combinado (Next + Biome).
+- `bun run test` – Suite de testes Bun (ainda sem casos implementados).
+- `bun run scrape:umanni` – Executa scraper com envs `UMANNI_SESSION_COOKIE`, `UMANNI_BASE_URL`, `SCRAPER_CONCURRENCY`, `INPUT_PATH`, `OUTPUT_PATH`.
+
+## Variaveis de Ambiente
+- API (`apps/api/.env.local`): `PORT`, `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_DEPLOYMENT`, `AZURE_OPENAI_API_KEY`, `AZURE_OPENAI_API_VERSION`.
+- Frontend: `NEXT_PUBLIC_API_BASE_URL` aponta para a API em execucao.
+- Scraper: defina `UMANNI_SESSION_COOKIE` (obrigatorio) e demais variaveis conforme necessidade.
+
+## Testes e Qualidade
+- Ainda nao ha suites formais. Utilize `bun run test` para futuras implementacoes e mantenha cobertura minima de 80% quando adicionar testes.
+- Priorize tipagem estrita (TypeScript 5+), evite `any` e siga convencoes: arquivos em kebab-case, componentes em PascalCase.
+- Use Conventional Commits nas contribuicoes (`feat(api): ...`, `fix(web): ...`). Atualize `.env.example` quando introduzir novas variaveis.
